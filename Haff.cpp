@@ -1,8 +1,8 @@
 #include<iostream>
-#include<math>
+#include<cmath>
 #define N 8
 //find two min program;
-
+using namespace std;
 //huff_man tree pont;
 class huff_p{
 public:
@@ -39,7 +39,7 @@ void creat_huffman_code(huff_p* h1,huff_code* h);//生成huffman编码;
 void r_find(huff_p* p1,char code[],int i,huff_code* h);
 void output_huffman(huff_code* head);//输出huffman编码;
 void cal_sort_length(huff_code* head);//计算指令用huffman编码的平均编码字长
-void main()
+int main()
 {
 	f_min_p *h,*h1;
     huff_p  *root;
@@ -73,7 +73,12 @@ void main()
 		head=pl;
 		pl=pl->next;
 	}
+	return 0;
 }
+
+/* input from keyboard
+ * success
+ */
 f_min_p* input_instruct_set()
 {
 	f_min_p* head;
@@ -109,6 +114,10 @@ f_min_p* input_instruct_set()
 	}
 	return head;
 }
+
+/* create huffman_tree 
+ * success
+ */
 huff_p* creat_huffman_tree(f_min_p* h)
 {
   f_min_p *h1,*min1,*min2,*comb;
@@ -145,7 +154,6 @@ huff_p* creat_huffman_tree(f_min_p* h)
 
   head=parent;
   int i=0;
-  cout<<i<<endl;
 
   while(h1->next!=NULL)
   {
@@ -187,13 +195,16 @@ huff_p* creat_huffman_tree(f_min_p* h)
 	  comb->huf_p=parent;
 	  head=parent;
 
-	  cout<<++i<<endl;
-
 	  if(h1->next==NULL)break;
   } 
   delete comb;
   return head;
 }
+
+/* find the min element
+ * success
+ */
+
 f_min_p* fin_min(f_min_p* h)
 {
   f_min_p *h1,*p1;
@@ -212,6 +223,8 @@ f_min_p* fin_min(f_min_p* h)
   }
   return p1; 
 }
+
+/* success*/
 f_min_p* del_min( f_min_p *h,f_min_p *p)
 {
 	f_min_p *p1,*p2;
@@ -238,6 +251,8 @@ f_min_p* del_min( f_min_p *h,f_min_p *p)
 	}
     return h;
 }
+
+
  void insert_n(f_min_p *h,f_min_p *p1)
 {
 	  p1->next=h->next;
@@ -269,7 +284,8 @@ void r_find(huff_p* p1,char code[],int i,huff_code* h)
 		p2->op_mask[1]=p1->op_mask[1];
 		p1->op_mask[2]='\0';
 		p2->p=p1->p;
-		for(int j=0;j<i;j++)
+		int j = 0;
+		for(j=0;j<i;j++)
 		{
 			p2->code[j]=code[j];
 		}
@@ -327,6 +343,7 @@ void cal_sort_length(huff_code* head)
 		h=h->next;
 		j++;
 	}
+    cout<<"哈夫曼编码的平均长度:"<<per_length<<endl;
 	int i1=int(j);
     huff_code *p2=head->next;
     float* p_a=new float[i1];
@@ -371,7 +388,7 @@ void cal_sort_length(huff_code* head)
     //计算等长编码平均长度；
     double q_length=log10(j)/log10(2);	
 
-	cout<<"此指令集操作码huffman编码的平均长度为："<<per_length<<endl;
+
 	cout<<"等长编码的平均长度为："<<q_length<<endl;
 	cout<<"按1-2-3-5的扩展编码的最短平均编码长度为："<<ext_length;
 	cout<<endl;
