@@ -120,85 +120,85 @@ f_min_p* input_instruct_set()
  */
 huff_p* creat_huffman_tree(f_min_p* h)
 {
-  f_min_p *h1,*min1,*min2,*comb;
-  huff_p* head,*rd,*ld,*parent;
+	f_min_p *h1,*min1,*min2,*comb;
+	huff_p* head,*rd,*ld,*parent;
 
-  h1=h;
+	h1=h;
 
-  min1=fin_min(h1);
-  ld=creat_huffp(min1);
-  h1=del_min(h1,min1);
+	min1=fin_min(h1);
+	ld=creat_huffp(min1);
+	h1=del_min(h1,min1);
 
-  if(h1->next)
-	  min2=fin_min(h1);
-  else
-	  min2=h1;
-  rd=creat_huffp(min2);
+	if(h1->next)
+		min2=fin_min(h1);
+	else
+		min2=h1;
+	rd=creat_huffp(min2);
 
-  comb=new f_min_p;
-  comb->next=NULL;
-  comb->p=rd->p+ld->p;
-  comb->op_mask[0]='\0';
-  comb->op_mask[1]='\0';
+	comb=new f_min_p;
+	comb->next=NULL;
+	comb->p=rd->p+ld->p;
+	comb->op_mask[0]='\0';
+	comb->op_mask[1]='\0';
 
-  parent=creat_huffp(comb);
+	parent=creat_huffp(comb);
 
-  insert_n(h1,comb);
-  if(h1->next!=NULL)
-	  h1=del_min(h1,min2);
-      
-  parent->l_child=ld;
-  parent->r_child=rd;
+	insert_n(h1,comb);
+	if(h1->next!=NULL)
+		h1=del_min(h1,min2);
+		
+	parent->l_child=ld;
+	parent->r_child=rd;
 
-  comb->huf_p=parent;
+	comb->huf_p=parent;
 
-  head=parent;
-  int i=0;
+	head=parent;
+	int i=0;
 
-  while(h1->next!=NULL)
-  {
-	  min1=fin_min(h1);
-	  if(min1->huf_p==NULL)
-	  {
-		  	ld=creat_huffp(min1);
-	  }
-	  else
-	  {
-		  ld=min1->huf_p;
-	  }
-      h1=del_min(h1,min1);
+	while(h1->next!=NULL)
+	{
+		min1=fin_min(h1);
+		if(min1->huf_p==NULL)
+		{
+			ld=creat_huffp(min1);
+		}
+		else
+		{
+			ld=min1->huf_p;
+		}
+		h1=del_min(h1,min1);
 
-	  if(h1->next)
-		  min2=fin_min(h1);
-	  else
-		  min2=h1;
-	  if(min2->huf_p==NULL)
-	  {
-		   rd=creat_huffp(min2);
-	  }
-	  else
-	  {
-		  rd=min2->huf_p;
-	  }
-	  comb=new f_min_p;
-	  comb->next=NULL;
-	  comb->p=rd->p+ld->p;
-	  comb->op_mask[0]='\0';
-	  comb->op_mask[1]='\0';
-      parent=creat_huffp(comb);  
-	  if(h1!=NULL)
-		  insert_n(h1,comb);
-	  if(h1->next!=NULL)
-		  h1=del_min(h1,min2); 
-	  parent->l_child=ld;
-	  parent->r_child=rd;
-	  comb->huf_p=parent;
-	  head=parent;
+		if(h1->next)
+			min2=fin_min(h1);
+		else
+			min2=h1;
+		if(min2->huf_p==NULL)
+		{
+			rd=creat_huffp(min2);
+		}
+		else
+		{
+			rd=min2->huf_p;
+		}
+		comb=new f_min_p;
+		comb->next=NULL;
+		comb->p=rd->p+ld->p;
+		comb->op_mask[0]='\0';
+		comb->op_mask[1]='\0';
+		parent=creat_huffp(comb);  
+		if(h1!=NULL)
+			insert_n(h1,comb);
+		if(h1->next!=NULL)
+			h1=del_min(h1,min2); 
+		parent->l_child=ld;
+		parent->r_child=rd;
+		comb->huf_p=parent;
+		head=parent;
 
-	  if(h1->next==NULL)break;
-  } 
-  delete comb;
-  return head;
+		if(h1->next==NULL)break;
+	} 
+	delete comb;
+	return head;
 }
 
 /* find the min element
@@ -214,12 +214,12 @@ f_min_p* fin_min(f_min_p* h)
   h1=h1->next;
   while(h1)
   {
-	  if(min>(h1->p))
-	  {
-		  min=h1->p;
-		  p1=h1;
-	  }
-	  h1=h1->next;
+		if(min>(h1->p))
+		{
+			min=h1->p;
+			p1=h1;
+		}
+		h1=h1->next;
   }
   return p1; 
 }
@@ -232,8 +232,8 @@ f_min_p* del_min( f_min_p *h,f_min_p *p)
 	p2=h;
 	if(h==p)
 	{  
-	   h=h->next;
-       delete p;
+		h=h->next;
+		delete p;
 	}
 	else
 	{
@@ -255,8 +255,8 @@ f_min_p* del_min( f_min_p *h,f_min_p *p)
 
  void insert_n(f_min_p *h,f_min_p *p1)
 {
-	  p1->next=h->next;
-	  h->next=p1;
+		p1->next=h->next;
+		h->next=p1;
 }
 huff_p*  creat_huffp(f_min_p* d)
 {	
@@ -273,8 +273,8 @@ void r_find(huff_p* p1,char code[],int i,huff_code* h)
 {
 	if(p1->l_child)
 	{
-	  code[i]='1';
-	  r_find(p1->l_child,code,i+1,h);
+		code[i]='1';
+		r_find(p1->l_child,code,i+1,h);
 	}
  
 	if(p1->op_mask[0]!='\0')
